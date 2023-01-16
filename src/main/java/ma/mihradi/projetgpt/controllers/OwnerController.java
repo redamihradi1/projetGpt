@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -53,15 +54,16 @@ public class OwnerController {
     @GetMapping("/editOwner")
     public String editOwner(Model model,Long id){
         Owner owner = ownerRepository.findById(id).orElse(null);
-
         model.addAttribute("ownerDto",ownerMapper.fromOwner(owner));
         model.addAttribute("idOwner",id);
+        System.out.println("id owner : "+id);
         return "owner/editOwner";
     }
     @PostMapping(path = "/saveEditOwner")
-    public String saveEditOwner(OwnerDto ownerDto,@PathVariable Long id, BindingResult bindingResult){
+    public String saveEditOwner(@Valid OwnerDto ownerDto,Model model,@RequestParam Long id ,BindingResult bindingResult){
         if (bindingResult.hasErrors()) return "editOwner";
-        ownerService.editOwner(ownerDto,id);
+        System.out.println("id owner : "+id);
+        ownerService.editOwner(ownerDto, id);
         return "redirect:/allOwners";
     }
 }

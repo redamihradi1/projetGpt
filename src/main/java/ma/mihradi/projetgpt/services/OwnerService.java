@@ -44,7 +44,6 @@ public class OwnerService {
             owner.setFullName(ownerEdit.getFullName());
             owner.setEmail(ownerEdit.getEmail());
             owner.setPhoneNumber(ownerEdit.getPhoneNumber());
-            owner.setPassword(ownerEdit.getPassword());
             ownerRepository.save(owner);
             return true;
         }
